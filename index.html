@@ -8,42 +8,40 @@
 <style>
     :root {
         /* 아기자기한 파스텔톤 컬러 팔레트 */
-        --color-coral: #ffdede; /* 산호색 연핑크 */
-        --color-mint: #e0f2f1; /* 민트 연하늘색 */
-        --color-lavender: #f3e5f5; /* 연보라색 */
-        --color-text-dark: #3e2723; /* 진한 브라운 텍스트 */
+        --color-coral: #ffdede;
+        --color-mint: #e0f2f1;
+        --color-lavender: #f3e5f5;
+        --color-text-dark: #3e2723;
         --color-card-bg: #ffffff;
-        --shadow-handdrawn: rgba(0, 0, 0, 0.2); /* 연한 그림자 */
+        --shadow-handdrawn: rgba(0, 0, 0, 0.2);
     }
 
     body {
-        font-family: 'Jua', sans-serif; /* 귀여운 폰트 적용 */
+        font-family: 'Jua', sans-serif;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         min-height: 100vh;
         margin: 0;
-        background-color: var(--color-lavender); /* 연보라 배경 */
+        background-color: var(--color-lavender);
         color: var(--color-text-dark);
         transition: background-color 0.5s ease;
-        /* 아기자기한 점 패턴 배경 추가 */
         background-image: radial-gradient(var(--color-text-dark) 0.5px, transparent 0.5px);
         background-size: 15px 15px;
     }
 
     .card {
         background-color: var(--color-card-bg);
-        border-radius: 30px; /* 더 둥글게 */
+        border-radius: 30px;
         padding: 40px;
-        /* 손으로 그린 듯한 이중 테두리 및 그림자 */
         box-shadow: 0 0 0 6px var(--color-text-dark), 0 8px 15px var(--shadow-handdrawn); 
         text-align: center;
-        width: 100%;
-        max-width: 380px; /* 더 아담하게 */
+        width: 90%; /* 모바일에서 90% 너비 사용 */
+        max-width: 420px; /* PC에서 최대 너비 설정 */
         transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        /* 요소를 살짝 기울여 아기자기한 느낌 강조 */
         transform: rotate(-1deg); 
+        box-sizing: border-box; /* 패딩과 테두리가 너비에 포함되도록 설정 */
     }
     
     .card:hover {
@@ -61,26 +59,26 @@
         font-family: 'Jua', sans-serif;
         font-weight: bold;
         font-size: 1.4rem;
-        padding: 12px 30px; /* 좀 더 아담한 버튼 크기 */
+        padding: 12px 30px;
         margin: 8px;
-        border-radius: 25px; /* 아주 둥글게 */
-        /* 손으로 그린 듯한 테두리와 그림자 */
+        border-radius: 25px;
         border: 4px solid var(--color-text-dark); 
         color: var(--color-text-dark);
         cursor: pointer;
         transition: transform 0.15s ease, box-shadow 0.15s ease;
-        box-shadow: 4px 4px 0px 0px var(--color-text-dark); /* 스케치 그림자 */
-        /* 버튼을 살짝 기울여 아기자기한 비대칭 강조 */
-        transform: rotate(1deg); 
+        box-shadow: 4px 4px 0px 0px var(--color-text-dark);
+        transform: rotate(1deg);
+        width: calc(50% - 16px); /* 버튼 두 개가 가로로 나란히 배치되도록 너비 조정 */
+        min-width: 120px;
+        box-sizing: border-box;
     }
 
-    button:nth-of-type(2) { /* 두 번째 버튼 (아니요 버튼)을 반대로 기울임 */
+    button:nth-of-type(2) {
         transform: rotate(-2deg); 
     }
 
-    /* 버튼 호버 시 통통 튀는 효과 */
     button:hover {
-        transform: translateY(-3px) rotate(0deg); /* 호버 시 일시적으로 수평 */
+        transform: translateY(-3px) rotate(0deg);
         box-shadow: 6px 6px 0px 0px var(--color-text-dark);
     }
 
@@ -100,6 +98,8 @@
     #back_btn {
         background-color: var(--color-lavender);
         margin-top: 20px;
+        width: auto; /* '뒤로가기' 버튼은 내용에 맞게 너비 자동 설정 */
+        transform: none; /* '뒤로가기' 버튼은 기울이지 않음 */
     }
 
     .hidden {
@@ -111,7 +111,6 @@
         font-weight: bold;
         margin-top: 20px;
         color: var(--color-text-dark);
-        /* 애니메이션 효과: 더욱 부드럽게 팝인 */
         animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; 
     }
 
@@ -119,11 +118,51 @@
     body.yes-state { background-color: var(--color-coral); } 
     body.no-state { background-color: var(--color-mint); }
 
-
     @keyframes popIn {
         0% { opacity: 0; transform: scale(0.6) rotate(5deg); }
         80% { opacity: 1; transform: scale(1.05) rotate(-1deg); }
         100% { transform: scale(1) rotate(-1deg); }
+    }
+
+    /* --- 모바일 최적화 (화면 너비 600px 이하) --- */
+    @media (max-width: 600px) {
+        .card {
+            padding: 25px;
+            border-radius: 20px; /* 모바일에서 조금 덜 둥글게 */
+            transform: rotate(0deg); /* 모바일에서는 기울이기 효과 제거 (가독성 향상) */
+        }
+
+        p {
+            font-size: 1.8rem; /* 모바일에서 폰트 크기 줄임 */
+            margin-bottom: 20px;
+        }
+
+        button {
+            font-size: 1.2rem;
+            padding: 10px 20px;
+            margin: 5px;
+            width: 90%; /* 모바일에서는 버튼을 세로로 꽉 채움 */
+            transform: rotate(0deg); /* 모바일에서는 기울이기 효과 제거 */
+            box-shadow: 3px 3px 0px 0px var(--color-text-dark); /* 그림자 작게 */
+        }
+        
+        button:nth-of-type(2) {
+            transform: rotate(0deg);
+        }
+
+        button:hover {
+            transform: translateY(-2px) rotate(0deg);
+            box-shadow: 5px 5px 0px 0px var(--color-text-dark);
+        }
+
+        .message {
+            font-size: 1.8rem;
+        }
+
+        @keyframes popIn { /* 모바일에서는 회전 없이 나타나도록 애니메이션 수정 */
+            0% { opacity: 0; transform: scale(0.6); }
+            100% { opacity: 1; transform: scale(1); }
+        }
     }
 </style>
 </head>
@@ -140,6 +179,7 @@
 </div>
 
 <script>
+// (JavaScript 코드는 이전과 동일합니다.)
 const yes_btn = document.getElementById("yes_btn");
 const no_btn = document.getElementById("no_btn");
 const question = document.getElementById("question");
@@ -150,7 +190,6 @@ const body = document.body;
 
 yes_btn.addEventListener("click", () => {
     question.classList.add("hidden");
-    // 아기자기한 메시지와 이모지 추가
     message_text.textContent = "최고의 해누리 친구! 같이 신나게 놀자! 🎈";
     message_area.classList.remove("hidden");
     body.classList.remove("no-state");
@@ -159,7 +198,6 @@ yes_btn.addEventListener("click", () => {
 
 no_btn.addEventListener("click", () => {
     question.classList.add("hidden");
-    // 아기자기한 메시지와 이모지 추가
     message_text.textContent = "조금만 기다릴게! 다음에 꼭 해누리에서 만나자! 🌈";
     message_area.classList.remove("hidden");
     body.classList.remove("yes-state");
